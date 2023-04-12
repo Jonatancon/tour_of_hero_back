@@ -25,8 +25,8 @@ public class HeroRepositoryImpl implements HeroRepository {
     }
 
     @Override
-    public Optional<Hero> getHeroByCodigo(Integer codigo) {
-        return persistence.findHeroEntitiesByCodigo(codigo)
+    public Optional<Hero> getHeroById(Integer id) {
+        return persistence.findHeroEntitiesById(id)
                 .map(mapper::toHero);
     }
 
@@ -46,19 +46,22 @@ public class HeroRepositoryImpl implements HeroRepository {
     }
 
     @Override
-    public void delete(Integer codigo) {
-        persistence.deleteHeroEntityByCodigo(codigo);
+    public void delete(Integer id) {
+        persistence.deleteHeroEntitiesById(id);
     }
 
     @Override
     public Optional<Hero> update(Hero hero) {
         HeroEntity entity = mapper.toHeroEntity(hero);
-        return Optional.of(mapper.toHero(persistence.save(entity)));
+        HeroEntity origin = persistence.findHeroEntitiesById(hero.getId()).orElse(new HeroEntity());
+        origin.setId(entity.getId());
+        origin.setName(entity.getName());
+        return Optional.of(mapper.toHero(persistence.save(origin)));
     }
 
     @Override
     public Optional<List<Hero>> getHeroesContainsTerm(String term) {
-        List<HeroEntity> list = persistence.findAllByNombreIsContainingIgnoreCase(term);
+        List<HeroEntity> list = persistence.findAllByNameIsContainingIgnoreCase(term);
         if (list.isEmpty()) {
             return Optional.empty();
         }

@@ -13,7 +13,7 @@ public interface HeroMapper {
     Hero toHero(HeroEntity heroEntity);
 
     @InheritInverseConfiguration
-    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "code", ignore = true)
     HeroEntity toHeroEntity(Hero hero);
 
     List<Hero> toHeroes (List<HeroEntity> heroEntities);

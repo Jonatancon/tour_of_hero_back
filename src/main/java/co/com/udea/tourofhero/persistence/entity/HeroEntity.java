@@ -8,28 +8,19 @@ import java.io.Serializable;
 @Table(name = "HERO")
 public class HeroEntity implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String code;
+
     private Integer id;
 
-    private Integer codigo;
+    private String name;
 
-    private String nombre;
-
-    public Integer getCodigo() {
-        return codigo;
+    public String getCode() {
+        return code;
     }
 
-    public void setCodigo(Integer codigo) {
-        this.codigo = codigo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Integer getId() {
@@ -38,5 +29,13 @@ public class HeroEntity implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

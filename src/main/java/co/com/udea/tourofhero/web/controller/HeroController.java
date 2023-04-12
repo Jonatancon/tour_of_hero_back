@@ -9,8 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Random;
 
 @RestController
+@CrossOrigin("*")
 @RequestMapping(HeroController.HERO_URL)
 public class HeroController {
 
@@ -35,12 +37,13 @@ public class HeroController {
 
     @PostMapping
     public ResponseEntity<Hero> addHero(@RequestBody Hero hero) {
+        hero.setId((int) (Math.random()*1000+1));
         return new ResponseEntity<>(service.saveHero(hero), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{codigo}")
-    public ResponseEntity<Mensaje> deleteHero(@PathVariable Integer codigo) {
-        service.deleteHero(codigo);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Mensaje> deleteHero(@PathVariable Integer id) {
+        service.deleteHero(id);
         return new ResponseEntity<>(new Mensaje( "001", "Hero delete"), HttpStatus.OK);
     }
 
@@ -49,8 +52,8 @@ public class HeroController {
         return new ResponseEntity<>(service.updateHero(hero), HttpStatus.OK);
     }
 
-    @GetMapping("/name")
-    public ResponseEntity<List<Hero>> searchHeroes(@RequestParam String term) {
-        return new ResponseEntity<>(service.searchHeroesContainsTerm(term), HttpStatus.OK);
+    @GetMapping("/")
+    public ResponseEntity<List<Hero>> searchHeroes(@RequestParam String name) {
+        return new ResponseEntity<>(service.searchHeroesContainsTerm(name), HttpStatus.OK);
     }
 }

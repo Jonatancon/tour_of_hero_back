@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface HeroCrud extends JpaRepository<HeroEntity, Integer> {
-    Optional<HeroEntity> findHeroEntitiesByCodigo(Integer codigo);
+public interface HeroCrud extends JpaRepository<HeroEntity, String> {
+    Optional<HeroEntity> findHeroEntitiesById(Integer id);
 
-    void deleteHeroEntityByCodigo(Integer codigo);
+    void deleteHeroEntitiesById(Integer id);
 
-    List<HeroEntity> findAllByNombreIsContainingIgnoreCase(String term);
+    List<HeroEntity> findAllByNameIsContainingIgnoreCase(String term);
 }

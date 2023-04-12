@@ -4,6 +4,7 @@ import co.com.udea.tourofhero.domain.errorhandler.BadResponseErrorHandler;
 import co.com.udea.tourofhero.domain.model.Hero;
 import co.com.udea.tourofhero.domain.model.enums.Responses;
 import co.com.udea.tourofhero.domain.repository.HeroRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,8 @@ public class HeroService {
         this.repository = repository;
     }
 
-    public Hero getHeroByCodigo(Integer codigo) {
-        return repository.getHeroByCodigo(codigo)
+    public Hero getHeroByCodigo(Integer id) {
+        return repository.getHeroById(id)
                 .orElseThrow( () -> {
                     throw new BadResponseErrorHandler(Responses.NOT_FOUND_ENTITY.getMensaje(),
                             Responses.NOT_FOUND_ENTITY.getCodigo(),
@@ -36,6 +37,7 @@ public class HeroService {
                 });
     }
 
+    @Transactional
     public Hero saveHero(Hero hero) {
         return repository.save(hero)
                 .orElseThrow( () -> {
@@ -45,9 +47,10 @@ public class HeroService {
                 });
     }
 
-    public boolean deleteHero(Integer codigo) {
-        return repository.getHeroByCodigo(codigo).map(hero -> {
-            repository.delete(codigo);
+    @Transactional
+    public boolean deleteHero(Integer id) {
+        return repository.getHeroById(id).map(hero -> {
+            repository.delete(id);
             return true;
         }).orElseThrow( () -> {
             throw new BadResponseErrorHandler(Responses.NOT_DELETE_ENTITY.getMensaje(),
@@ -56,8 +59,9 @@ public class HeroService {
         });
     }
 
+    @Transactional
     public Hero updateHero(Hero hero) {
-        return repository.getHeroByCodigo(hero.getCodigo()).map(data -> repository.update(hero).orElseThrow(() -> {
+        return repository.getHeroById(hero.getId()).map(data -> repository.update(hero).orElseThrow(() -> {
             throw new BadResponseErrorHandler(Responses.NOT_UPDATE_ENTITY.getMensaje(),
                     Responses.NOT_UPDATE_ENTITY.getCodigo(),
                     Responses.NOT_UPDATE_ENTITY.getHttpStatus());

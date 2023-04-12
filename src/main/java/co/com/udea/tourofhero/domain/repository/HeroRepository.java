@@ -7,10 +7,10 @@ import java.util.Optional;
 
 public interface HeroRepository {
 
-    Optional<Hero> getHeroByCodigo(Integer codigo);
+    Optional<Hero> getHeroById(Integer id);
     Optional<List<Hero>> getHeros();
     Optional<Hero> save(Hero hero);
-    void delete(Integer codigo);
+    void delete(Integer id);
     Optional<Hero> update(Hero hero);
 
     Optional<List<Hero>> getHeroesContainsTerm(String term);
