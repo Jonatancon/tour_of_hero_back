@@ -12,4 +12,6 @@ public interface HeroRepository {
     Optional<Hero> save(Hero hero);
     void delete(Integer codigo);
     Optional<Hero> update(Hero hero);
+
+    Optional<List<Hero>> getHeroesContainsTerm(String term);
 }

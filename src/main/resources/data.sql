@@ -1,0 +1,10 @@
+INSERT INTO hero (id, codigo, nombre) VALUES (1, 12, 'Dr. Nice');
+INSERT INTO hero (id, codigo, nombre) VALUES (2, 13, 'Bombasto');
+INSERT INTO hero (id, codigo, nombre) VALUES (3, 14, 'Celeritas');
+INSERT INTO hero (id, codigo, nombre) VALUES (4, 15, 'Magneta');
+INSERT INTO hero (id, codigo, nombre) VALUES (5, 16, 'RubberMan');
+INSERT INTO hero (id, codigo, nombre) VALUES (6, 17, 'Dynama');
+INSERT INTO hero (id, codigo, nombre) VALUES (7, 18, 'Dr. IQ');
+INSERT INTO hero (id, codigo, nombre) VALUES (8, 19, 'Magma');
+INSERT INTO hero (id, codigo, nombre) VALUES (9, 20, 'Tornado');
+INSERT INTO hero (id, codigo, nombre) VALUES (10, 21, 'Dr omni');

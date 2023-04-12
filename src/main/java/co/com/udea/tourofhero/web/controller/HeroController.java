@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping(HeroController.HERO_URL)
 public class HeroController {
 
-    public static final String HERO_URL = "/hero";
+    public static final String HERO_URL = "/heroes";
 
     private final HeroService service;
 
@@ -24,7 +24,7 @@ public class HeroController {
     }
 
     @GetMapping("/{codigo}")
-    public ResponseEntity<Hero> getHeroByCodigo(@PathVariable Integer codigo) {
+    public ResponseEntity<Hero> getHero(@PathVariable Integer codigo) {
         return new ResponseEntity<>(service.getHeroByCodigo(codigo), HttpStatus.OK);
     }
 
@@ -34,12 +34,12 @@ public class HeroController {
     }
 
     @PostMapping
-    public ResponseEntity<Hero> saveHero(@RequestBody Hero hero) {
-        return new ResponseEntity<>(service.saveHero(hero), HttpStatus.OK);
+    public ResponseEntity<Hero> addHero(@RequestBody Hero hero) {
+        return new ResponseEntity<>(service.saveHero(hero), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{codigo}")
-    public ResponseEntity<Mensaje> deleteHeroByCodigo(@PathVariable Integer codigo) {
+    public ResponseEntity<Mensaje> deleteHero(@PathVariable Integer codigo) {
         service.deleteHero(codigo);
         return new ResponseEntity<>(new Mensaje( "001", "Hero delete"), HttpStatus.OK);
     }
@@ -47,5 +47,10 @@ public class HeroController {
     @PutMapping
     public ResponseEntity<Hero> updateHero(@RequestBody Hero hero) {
         return new ResponseEntity<>(service.updateHero(hero), HttpStatus.OK);
+    }
+
+    @GetMapping("/name")
+    public ResponseEntity<List<Hero>> searchHeroes(@RequestParam String term) {
+        return new ResponseEntity<>(service.searchHeroesContainsTerm(term), HttpStatus.OK);
     }
 }

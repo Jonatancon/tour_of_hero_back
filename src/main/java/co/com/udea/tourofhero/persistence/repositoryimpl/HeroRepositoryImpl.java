@@ -32,11 +32,11 @@ public class HeroRepositoryImpl implements HeroRepository {
 
     @Override
     public Optional<List<Hero>> getHeros() {
-        List<HeroEntity> lista = persistence.findAll();
-        if (lista.isEmpty()) {
+        List<HeroEntity> list = persistence.findAll();
+        if (list.isEmpty()) {
             return Optional.empty();
         }
-        return Optional.of(mapper.toHeroes(lista));
+        return Optional.of(mapper.toHeroes(list));
     }
 
     @Override
@@ -54,5 +54,14 @@ public class HeroRepositoryImpl implements HeroRepository {
     public Optional<Hero> update(Hero hero) {
         HeroEntity entity = mapper.toHeroEntity(hero);
         return Optional.of(mapper.toHero(persistence.save(entity)));
+    }
+
+    @Override
+    public Optional<List<Hero>> getHeroesContainsTerm(String term) {
+        List<HeroEntity> list = persistence.findAllByNombreIsContainingIgnoreCase(term);
+        if (list.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(mapper.toHeroes(list));
     }
 }

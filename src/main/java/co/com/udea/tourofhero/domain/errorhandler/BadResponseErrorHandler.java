@@ -1,5 +1,6 @@
 package co.com.udea.tourofhero.domain.errorhandler;
 
+
 import org.springframework.http.HttpStatus;
 
 public class BadResponseErrorHandler extends RuntimeException{

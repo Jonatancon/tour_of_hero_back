@@ -67,4 +67,13 @@ public class HeroService {
                     Responses.NOT_UPDATE_ENTITY.getHttpStatus());
         });
     }
+
+    public List<Hero> searchHeroesContainsTerm(String term) {
+        return repository.getHeroesContainsTerm(term)
+                .orElseThrow( () -> {
+                    throw new BadResponseErrorHandler(Responses.NOT_FOUND_ENTITIES.getMensaje(),
+                            Responses.NOT_FOUND_ENTITIES.getCodigo(),
+                            Responses.NOT_FOUND_ENTITIES.getHttpStatus());
+                });
+    }
 }
